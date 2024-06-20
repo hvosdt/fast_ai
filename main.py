@@ -8,7 +8,7 @@ app = FastAPI()
 UPLOAD_DIR = 'uploads'
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-@app.post('/upload/{id}')
+@app.post('/upload/{lead_id}')
 async def upload_file(lead_id: int, file: UploadFile = File(...), authorization: str=None):
     if authorization != 'Bearer Asdf2121':
         return HTTPException(status_code=401, detail='Unauthorized')
