@@ -19,6 +19,7 @@ def recognize(filename):
     response = model.generate_content(
         contents=[prompt, cookie_picture]
     )
-    result = response.to_dict()['candidates'][0]['content']['parts'][0]['text']
+    result = response.to_dict()
+    
     #return response.to_dict()
-    return result
+    return result['candidates'][0]['content']['parts'][0]['text']
