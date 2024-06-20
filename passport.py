@@ -4,7 +4,7 @@ import pathlib
 import json
 import config
 
-genai.configure(config.GOOGLE_API_KEY)
+genai.configure(api_key=config.GOOGLE_API_KEY)
 
 model = genai.GenerativeModel('gemini-1.5-flash')
 
