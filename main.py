@@ -19,6 +19,7 @@ async def upload_file(lead_id: int, file: UploadFile = File(...)):
         contents = await file.read()
         f.write(contents)
     result = recognize(file_path)
-    print(result)
+    jres = json.loads(result)
+    print(jres['Имя'])
     
-    return {'status': 'success', 'payload': json.dumps(result)}
+    return {'status': 'success', 'payload': json.loads(result)}

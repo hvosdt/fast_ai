@@ -3,10 +3,16 @@ import os
 import pathlib
 import json
 import config
+import re
 
 genai.configure(api_key=config.GOOGLE_API_KEY)
 
 model = genai.GenerativeModel('gemini-1.5-flash')
+
+def clean_json_string(json_string):
+    pattern = r'^```json\s*(.*?)\s*```$'
+    cleaned_string = re.sub(pattern, r'\1', json_string, flags=re.DOTALL)
+    return cleaned_string.strip()
 
 def recognize(filename):
     cookie_picture = {
@@ -19,8 +25,7 @@ def recognize(filename):
     response = model.generate_content(
         contents=[prompt, cookie_picture]
     )
-    result = response.to_dict()
     
     #return response.to_dict()
     #return result['candidates'][0]['content']['parts'][0]['text']
-    return response.text
+    return clean_json_string(response.text)
