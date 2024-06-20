@@ -20,4 +20,6 @@ async def upload_file(lead_id: int, file: UploadFile = File(...)):
         f.write(contents)
     result = recognize(file_path)
     
+    print(result['номер документа'])
+    
     return {'status': 'success', 'payload': result}
