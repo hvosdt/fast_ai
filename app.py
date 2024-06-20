@@ -1,6 +1,7 @@
 from fastapi import FastApi, File, UploadFile, HTTPExeption
 from fastapi.response import FileResponse
 import os
+from passport import recognize
 
 app = FastApi()
 
@@ -16,4 +17,7 @@ async def upload_file(lead_id: int, file: UploadFile = File(...), authorization:
     with open(file_path, 'wb') as f:
         contents = await file.read()
         f.write(contents)
-    return {'starus': 'success', 'message': 'File uploaded successfully'}
+    result = recognize(file_path)
+    print(result)
+        
+    return {'starus': 'success', 'message': result}
