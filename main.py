@@ -2,6 +2,7 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 import os
 from passport import recognize
+import json
 
 app = FastAPI()
 
@@ -19,5 +20,5 @@ async def upload_file(lead_id: int, file: UploadFile = File(...)):
         f.write(contents)
     result = recognize(file_path)
     print(result)
-        
-    return {'starus': 'success', 'message': result}
+    res = json.loads(result)
+    return {'status': 'success', 'message': res}
