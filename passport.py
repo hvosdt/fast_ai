@@ -20,12 +20,23 @@ def recognize(filename):
         'data': pathlib.Path(f'{filename}').read_bytes()
     }
 
-    prompt = "Распознай заграничный паспорт и верни данные с такими полями: номер документа, Имя, Фамилия, Отчество, Гражданство, Дата рождения, Дата выдачи, Дата окончания срока, Пол, Место рождения."
+    prompt = "Распознай заграничный паспорт и верни данные с такими полями: Номер документа, Имя, Фамилия, Отчество, Гражданство, Дата рождения, Дата выдачи, Дата окончания срока, Пол, Место рождения. Если в поле есть спецсимволы или слова на латинице, то их объеденить"
 
     response = model.generate_content(
         contents=[prompt, cookie_picture]
     )
+    j = json.loads(clean_json_string(response.text))
     
-    #return response.to_dict()
-    #return result['candidates'][0]['content']['parts'][0]['text']
-    return clean_json_string(response.text)
+    res = {
+        'number': j['Номер документа'],
+        'name': j['Имя'],
+        'surname': j['Фамилия'],
+        'parentname': j['Отчество'],
+        'bdate': j['Дата рождения'],
+        'expire_date': j['Дата окончания срока'],
+        'issue_date': j['Дата выдачи'],
+        'citizenship': j['Гражданство'],
+        'place_of_birth': j['Место рождения'],
+        'gender': j['Пол'],        
+        }
+    return res
