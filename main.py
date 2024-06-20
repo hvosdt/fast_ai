@@ -19,7 +19,7 @@ async def upload_file(lead_id: int, file: UploadFile = File(...)):
         contents = await file.read()
         f.write(contents)
     result = recognize(file_path)
-    
-    print(result['номер документа'])
+    d = json.loads(result)
+    print(d['номер документа'])
     
     return {'status': 'success', 'payload': result}
