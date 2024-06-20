@@ -22,4 +22,5 @@ def recognize(filename):
     result = response.to_dict()
     
     #return response.to_dict()
-    return result['candidates'][0]['content']['parts'][0]['text']
+    #return result['candidates'][0]['content']['parts'][0]['text']
+    return response.text
