@@ -22,3 +22,4 @@ async def upload_file(lead_id: int, file: UploadFile = File(...)):
     print(result)
     
     return {'status': 'success', 'payload': result}
+
