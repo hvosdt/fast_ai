@@ -1,8 +1,11 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
+from pydantic import BaseModel
 import os
-from passport import recognize
 import json
+from passport import recognize
+from calls import recognize_call
+import requests
 
 app = FastAPI()
 
@@ -23,3 +26,19 @@ async def upload_file(lead_id: int, file: UploadFile = File(...)):
     
     return {'status': 'success', 'payload': result}
 
+class Call(BaseModel):
+    link: str
+    call_id: str
+    
+@app.post('/out_call/')
+async def out_call(call: Call):
+    response = requests.get(call.link)
+    
+    filename = f'{call.call_id}.ogg' 
+    with open(filename, 'wb') as f:
+        f.write(response.content)
+                
+    result = recognize_call(filename)
+    print(result)
+    
+    return {'status': 'success', 'payload': result}

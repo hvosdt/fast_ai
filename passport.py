@@ -54,4 +54,5 @@ def recognize(filename):
     return res
 
 if __name__ == '__main__':
-    recognize('21688211_photo_2024-06-21_18.04.57.jpeg')
+    r = recognize('21688211_photo_2024-06-21_18.04.57.jpeg')
+    print(r)
