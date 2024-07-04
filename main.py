@@ -34,6 +34,8 @@ class Call(BaseModel):
 @app.post('/out_call/{link}')
 async def out_call(link):
     response = requests.get(link)
+    print(response.content)
+    print(link)
     
     filename = f'123.ogg' 
     with open(filename, 'wb') as f:
