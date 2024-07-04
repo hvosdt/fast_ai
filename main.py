@@ -31,11 +31,11 @@ class Call(BaseModel):
     link: str
     call_id: str
     
-@app.post('/out_call/{link}')
-async def out_call(link):
-    response = requests.get(link)
-    print(response.content)
-    print(link)
+@app.post('/out_call')
+async def out_call(call: Call):
+    
+    response = requests.get(call.link)
+    print(response.content)    
     
     filename = f'123.ogg' 
     with open(filename, 'wb') as f:
