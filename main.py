@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 import os
 import json
@@ -39,6 +40,6 @@ async def out_call(link):
         f.write(response.content)
                 
     result = recognize_call(filename)
-    print(result)
     
-    return {'status': 'success', 'payload': result}
+    
+    return JSONResponse(content=jsonable_encoder(result))
