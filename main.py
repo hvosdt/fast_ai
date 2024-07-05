@@ -31,7 +31,7 @@ class Call(BaseModel):
     link: str
     call_id: str
     
-@app.post('/out_call')
+@app.get('/out_call')
 async def out_call(call: Call):
     
     response = requests.get(call.link)
