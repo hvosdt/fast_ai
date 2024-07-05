@@ -42,6 +42,6 @@ async def out_call(call: Call):
         f.write(response.content)
                 
     result = recognize_call(filename)
-    
+    result.replace('\n', '<br>')
     
     return JSONResponse(content=jsonable_encoder(result))
