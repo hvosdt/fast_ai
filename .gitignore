@@ -1,2 +1,5 @@
 /venv
 config.py
+.aws/config
+__pycache__/textract.cpython-310.pyc
+call.ogg
