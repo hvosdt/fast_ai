@@ -60,7 +60,7 @@ class TextractWrapper:
 
     # snippet-start:[python.example_code.textract.AnalyzeDocument]
     def analyze_file(
-        self, feature_types, *, document_file_name=None, document_bytes=None
+        self, feature_types, document_file_name=None, document_bytes=None
     ):
         """
         Detects text and additional elements, such as forms or tables, in a local image
