@@ -37,7 +37,7 @@ class Call(BaseModel):
     
 @app.get('/out_call')
 async def out_call(call: Call):    
-    filename = '{call_id}.ogg'.format(call.call_id)
+    filename = '{call_id}.ogg'.format(call_id = call.call_id)
     response = requests.get(call.link)
     
     with open(filename, 'wb') as file:
