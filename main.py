@@ -5,8 +5,12 @@ from pydantic import BaseModel
 import os
 import json
 from passport import recognize
-from calls import recognize_call
+#from calls import recognize_call
 import requests
+
+
+from dp import recognize_url
+from openai_client import get_recommendations
 
 app = FastAPI()
 
@@ -36,11 +40,12 @@ async def out_call(call: Call):
     
     response = requests.get(call.link)
     print(response.content)    
-    
-    filename = f'123.ogg' 
-    with open(filename, 'wb') as f:
-        f.write(response.content)
-                
-    result = recognize_call(filename)    
-    
+
+    call_text = recognize_url(call.link)
+    call_recomendations = get_recommendations(call_text)
+    result = {
+        'text': call_text,
+        'recomendations': call_recomendations
+    }
+
     return JSONResponse(content=jsonable_encoder(result))
