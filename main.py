@@ -9,7 +9,7 @@ from passport import recognize
 import requests
 
 
-from dp import recognize_url
+from dp import recognize_url, recognize_local
 from openai_client import get_recommendations
 
 app = FastAPI()
@@ -36,10 +36,19 @@ class Call(BaseModel):
     call_id: str
     
 @app.get('/out_call')
-async def out_call(call: Call):
-    call_text = recognize_url(call.link)
-    print(call_text)
-    print(call.link)
-    result = {}
+async def out_call(call: Call):    
+    filename = '{call_id}.ogg'.format(call.call_id)
+    response = requests.get(call.link)
+    
+    with open(filename, 'wb') as file:
+        file.write(response.content)
+    
+    call_text = recognize_local(filename)
+    call_recomendations = get_recommendations(call_text)
+    
+    result = {
+        'text': call_text,
+        'recomendations': call_recomendations
+    }
     
     return JSONResponse(content=jsonable_encoder(result))
