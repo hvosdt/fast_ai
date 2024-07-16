@@ -37,9 +37,13 @@ class Call(BaseModel):
     
 @app.get('/out_call')
 async def out_call(call: Call):
-    
-    response = requests.get(call.link)
-    print(response.content)
-    result = {}
+    print(call.link)
+    call_text = recognize_url(call.link)
+    print(call_text)
+    call_recomendations = get_recommendations(call_text)
+    result = {
+        'text': call_text,
+        'recomendations': call_recomendations
+    }
     
     return JSONResponse(content=jsonable_encoder(result))
