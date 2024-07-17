@@ -18,10 +18,14 @@ def recognize_passport(filename):
         features=[tc.Textract_Features.QUERIES],
         boto3_textract_client=textract)
     t_doc: t2.TDocument = t2.TDocumentSchema().load(textract_json)  # type: ignore
+    result = []
     for page in t_doc.pages:
         query_answers = t_doc.get_query_answers(page=page)
         for x in query_answers:
-            print(f"{x[1]},{x[2]}")
+            r = {
+                f'{x[1]}': x[2]
+            }
+            result.append(r)
     return query_answers
 
 if __name__ == '__main__':
