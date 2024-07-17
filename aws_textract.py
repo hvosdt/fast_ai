@@ -2,7 +2,7 @@ import textractcaller as tc
 import trp.trp2 as t2
 import boto3
 
-textract = boto3.client('textract', region_name="us-east-2")
+textract = boto3.client('textract', region_name="us-east-1")
 q1 = tc.Query(text="What is Passport No?", alias="passport_no", pages=["1"])
 q2 = tc.Query(text="What is Surname", alias="surname", pages=["1"])
 adapter1 = tc.Adapter(adapter_id="f63bc34524f2", version="3", pages=["1"])
