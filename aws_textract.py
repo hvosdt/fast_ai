@@ -18,9 +18,13 @@ if __name__ == "__main__":
             'Adapters': [
                 {
                     'AdapterId': 'f63bc34524f2',                    
-                    'Version': '3'
+                    'Version': 3
                 },
             ]
         }
     )
     print(response)
+    
+    
+    
+    
