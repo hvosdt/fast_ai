@@ -18,7 +18,7 @@ if __name__ == "__main__":
             'Adapters': [
                 {
                     'AdapterId': 'f63bc34524f2',                    
-                    'Version': 'Ver. 3'
+                    'Version': '3'
                 },
             ]
         }
