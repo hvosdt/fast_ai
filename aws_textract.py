@@ -26,7 +26,8 @@ def recognize_passport(filename):
                 f'{x[1]}': x[2]
             }
             result.append(r)
-    return query_answers
+    print(result)
+    return result
 
 if __name__ == '__main__':
     recognize_passport('image.jpeg')
