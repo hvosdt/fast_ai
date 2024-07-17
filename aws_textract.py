@@ -11,7 +11,6 @@ textract_json = tc.call_textract(
     queries_config=tc.QueriesConfig(queries=[q1, q2]),
     adapters_config=tc.AdaptersConfig(adapters=[adapter1]),
     features=[tc.Textract_Features.QUERIES],
-    force_async_api=True,
     boto3_textract_client=textract)
 t_doc: t2.TDocument = t2.TDocumentSchema().load(textract_json)  # type: ignore
 for page in t_doc.pages:
