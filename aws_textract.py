@@ -9,7 +9,7 @@ if __name__ == "__main__":
             
     response = client.analyze_document(
         Document={
-            'Bytes': file,                
+            'Bytes': document,                
         },
         FeatureTypes=[
             'QUERIES',
