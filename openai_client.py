@@ -5,9 +5,9 @@ def get_recommendations(text):
     client = OpenAI(project='proj_N4qPODMfw3cTgDsgKdeF3fcR', api_key=config.OPENAI_SECRET_KEY)
 
     completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o",
         messages=[
-            {"role": "system", "content": "Ты аналитик отдела продаж. Дай рекомендации по этому диалогу с клиентом"},
+            {"role": "system", "content": "Ты аналитик отдела продаж. Дай развернутую и не шаблонную аналитику по диалогу с клиентом. А так же рекомендации по улучшению именно этого диалога."},
             {"role": "user", "content": text}
         ]
         )
