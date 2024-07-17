@@ -14,6 +14,8 @@ from openai_client import get_recommendations
 
 app = FastAPI()
 
+from aws_textract import recognize_passport
+
 UPLOAD_DIR = 'uploads'
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
@@ -26,7 +28,7 @@ async def upload_file(lead_id: int, file: UploadFile = File(...)):
     with open(file_path, 'wb') as f:
         contents = await file.read()
         f.write(contents)
-    result = recognize(file_path)
+    result = recognize_passport(file_path)
     print(result)
     
     return {'status': 'success', 'payload': result}
