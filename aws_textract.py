@@ -12,7 +12,7 @@ if __name__ == "__main__":
             'Bytes': document,                
         },
         FeatureTypes=[
-            'QUERIES',
+            'TABLES',
         ],            
         AdaptersConfig={
             'Adapters': [
