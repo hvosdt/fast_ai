@@ -13,7 +13,7 @@ def recognize_passport(filename):
     q7 = tc.Query(text="What is Nationality", alias="nationality", pages=["1"])
     adapter1 = tc.Adapter(adapter_id="f63bc34524f2", version="3", pages=["1"])
     textract_json = tc.call_textract(
-        input_document="image.jpeg",
+        input_document=filename,
         queries_config=tc.QueriesConfig(queries=[q1, q2, q3, q4, q5, q6, q7]),
         adapters_config=tc.AdaptersConfig(adapters=[adapter1]),
         features=[tc.Textract_Features.QUERIES],
