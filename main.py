@@ -39,9 +39,8 @@ class Call(BaseModel):
     
 @app.get('/out_call')
 async def out_call(call: Call):    
-    ext = call.link.split('.')[-1]
-    filename = '{call_id}.{ext}'.format(call_id = call.call_id,
-                                        ext = ext)
+    #ext = call.link.split('/')[-1]
+    filename = '{call_id}.mp3'.format(call_id = call.call_id)
     response = requests.get(call.link)
     
     with open(filename, 'wb') as file:
