@@ -10,7 +10,7 @@ import requests
 
 
 from dp import recognize_url, recognize_local
-from openai_client import get_recommendations
+from openai_client import get_recommendations, get_wazzap_recomendations
 
 app = FastAPI()
 
@@ -52,6 +52,15 @@ async def out_call(call: Call):
     result = {
         'text': call_text,
         'recomendations': call_recomendations
+    }
+    
+    return JSONResponse(content=jsonable_encoder(result))
+
+@app.get('/wazzup_recommendations')
+async def wazzup_recommendations(text: str):
+    recomendations = get_wazzap_recomendations(text)
+    result = {
+        'recomendations': recomendations
     }
     
     return JSONResponse(content=jsonable_encoder(result))
