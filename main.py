@@ -37,6 +37,10 @@ class Call(BaseModel):
     link: str
     call_id: str
     
+class Conversation(BaseModel):
+    text: str
+    #lead_id: int
+    
 @app.get('/out_call')
 async def out_call(call: Call):    
     #ext = call.link.split('/')[-1]
@@ -57,8 +61,9 @@ async def out_call(call: Call):
     return JSONResponse(content=jsonable_encoder(result))
 
 @app.get('/wazzup_recommendations')
-async def wazzup_recommendations(text: str):
-    recomendations = get_wazzap_recomendations(text)
+async def wazzup_recommendations(conversation: Conversation):
+    recomendations = get_wazzap_recomendations(conversation.text)
+    
     result = {
         'recomendations': recomendations
     }
