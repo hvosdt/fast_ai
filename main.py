@@ -10,7 +10,7 @@ import requests
 
 
 from dp import recognize_url, recognize_local
-from openai_client import get_recommendations, get_wazzap_recomendations
+from openai_client import get_recommendations, get_wazzap_recomendations, get_lead_recomendations
 
 app = FastAPI()
 
@@ -47,9 +47,6 @@ async def out_call(call: Call):
     filename = '{call_id}.mp3'.format(call_id = call.call_id)
     response = requests.get(call.link)
     
-    with open(filename, 'wb') as file:
-        file.write(response.content)
-    
     call_text = recognize_local(filename)
     call_recomendations = get_recommendations(call_text)
     
@@ -63,6 +60,16 @@ async def out_call(call: Call):
 @app.get('/wazzup_recommendations')
 async def wazzup_recommendations(conversation: Conversation):
     recomendations = get_wazzap_recomendations(conversation.text)
+    
+    result = {
+        'recomendations': recomendations
+    }
+    
+    return JSONResponse(content=jsonable_encoder(result))
+
+@app.get('/lead_recommendations')
+async def lead_recommendations(conversation: Conversation):
+    recomendations = get_lead_recomendations(conversation.text)
     
     result = {
         'recomendations': recomendations
