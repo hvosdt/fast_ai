@@ -47,6 +47,9 @@ async def out_call(call: Call):
     filename = '{call_id}.mp3'.format(call_id = call.call_id)
     response = requests.get(call.link)
     
+    with open(filename, 'wb') as file:
+        file.write(response.content)
+    
     call_text = recognize_local(filename)
     call_recomendations = get_recommendations(call_text)
     
