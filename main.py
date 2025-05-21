@@ -10,7 +10,7 @@ import requests
 
 
 from dp import recognize_url, recognize_local
-from openai_client import get_recommendations, get_wazzap_recomendations, get_lead_recomendations
+from openai_client import get_recommendations, get_wazzap_recomendations, get_lead_recomendations, get_okk_dialog
 
 app = FastAPI()
 
@@ -73,6 +73,16 @@ async def wazzup_recommendations(conversation: Conversation):
 @app.get('/lead_recommendations')
 async def lead_recommendations(conversation: Conversation):
     recomendations = get_lead_recomendations(conversation.text)
+    
+    result = {
+        'recomendations': recomendations
+    }
+    
+    return JSONResponse(content=jsonable_encoder(result))
+
+@app.get('/okk_dialog')
+async def okk_dialog(conversation: Conversation):
+    recomendations = get_okk_dialog(conversation.text)
     
     result = {
         'recomendations': recomendations
